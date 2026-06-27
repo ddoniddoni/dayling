@@ -133,36 +133,36 @@
 
 ### 4-1. 타입 정의
 
-- [ ] `src/features/character/character.types.ts` 생성
-- [ ] Rarity 타입 정의
-- [ ] CharacterCatalog 타입 정의
-- [ ] UserCharacter 타입 정의
-- [ ] CharacterStatus 타입 정의
-- [ ] CharacterAnimation 타입 정의
+- [x] `src/features/character/character.types.ts` 생성
+- [x] Rarity 타입 정의
+- [x] CharacterCatalog 타입 정의
+- [x] UserCharacter 타입 정의
+- [x] CharacterStatus 타입 정의
+- [x] CharacterAnimation 타입 정의
 
 ### 4-2. 레벨 유틸
 
-- [ ] `src/lib/level.ts` 생성
-- [ ] `getRequiredExp(level)` 함수 작성
-- [ ] `applyExp(character, gainedExp)` 함수 작성
-- [ ] 다중 레벨업 처리
-- [ ] 테스트 가능한 순수 함수로 작성
+- [x] `src/lib/level.ts` 생성
+- [x] `getRequiredExp(level)` 함수 작성
+- [x] `applyExp(character, gainedExp)` 함수 작성
+- [x] 다중 레벨업 처리
+- [x] 테스트 가능한 순수 함수로 작성
 
 ### 4-3. 확률 유틸
 
-- [ ] `src/lib/probability.ts` 생성
-- [ ] 확률 합계 검증 함수 작성
-- [ ] 랜덤 캐릭터 선택 함수 작성
-- [ ] 누적 확률 방식 구현
-- [ ] 확률 합계가 100이 아닐 경우 에러 처리
+- [x] `src/lib/probability.ts` 생성
+- [x] 확률 합계 검증 함수 작성
+- [x] 랜덤 캐릭터 선택 함수 작성
+- [x] 누적 확률 방식 구현
+- [x] 확률 합계가 100이 아닐 경우 에러 처리
 
 ### 4-4. 상태값 유틸
 
-- [ ] `clampStatus(value)` 함수 작성
-- [ ] hunger/hydration/affection/energy 0~100 제한
-- [ ] 액션별 상태 증가량 정의
-- [ ] 액션별 애니메이션 매핑 정의
-- [ ] 액션별 쿨타임 정의
+- [x] `clampStatus(value)` 함수 작성
+- [x] hunger/hydration/affection/energy 0~100 제한
+- [x] 액션별 상태 증가량 정의
+- [x] 액션별 애니메이션 매핑 정의
+- [x] 액션별 쿨타임 정의
 
 ---
 
