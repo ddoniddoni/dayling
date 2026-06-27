@@ -1,11 +1,13 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { EggCard } from "@/components/ui/egg-card";
 import { Modal } from "@/components/ui/modal";
 import { RarityBadge } from "@/components/ui/rarity-badge";
+import type { HatchResponse } from "@/features/hatch/hatch.types";
 import type { Rarity } from "@prisma/client";
 
 const eggs = [
@@ -22,8 +24,50 @@ const probabilities: Array<{ rarity: Rarity; value: string }> = [
 ];
 
 export function EggSelectView() {
+  const router = useRouter();
   const [selectedEggId, setSelectedEggId] = useState(eggs[0].id);
   const [open, setOpen] = useState(false);
+  const [isHatching, setIsHatching] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function startHatch() {
+    if (isHatching) {
+      return;
+    }
+
+    setIsHatching(true);
+    setError(null);
+
+    try {
+      const response = await fetch("/api/hatch", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ eggType: selectedEggId }),
+      });
+
+      const data = (await response.json()) as HatchResponse;
+
+      if (!data.ok) {
+        setError(data.message);
+        return;
+      }
+
+      const params = new URLSearchParams({
+        name: data.character.name,
+        rarity: data.character.rarity,
+        probability: String(data.character.probability),
+      });
+
+      router.push(`/onboarding/result?${params.toString()}`);
+      router.refresh();
+    } catch {
+      setError("부화 요청 중 문제가 발생했습니다.");
+    } finally {
+      setIsHatching(false);
+    }
+  }
 
   return (
     <>
@@ -51,7 +95,14 @@ export function EggSelectView() {
           </div>
 
           <div className="grid gap-3 pb-2">
-            <Button type="button">이 알로 시작하기</Button>
+            {error ? (
+              <p role="alert" className="rounded-[18px] bg-[#FFF0F3] px-4 py-3 text-sm font-black text-[#9A5361]">
+                {error}
+              </p>
+            ) : null}
+            <Button type="button" onClick={startHatch} disabled={isHatching}>
+              {isHatching ? "부화 중..." : "이 알로 시작하기"}
+            </Button>
             <Button type="button" variant="secondary" onClick={() => setOpen(true)}>
               확률표 보기
             </Button>

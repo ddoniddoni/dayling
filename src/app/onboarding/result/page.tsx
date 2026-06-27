@@ -5,13 +5,36 @@ import { CharacterPlaceholder } from "@/components/dayling/character-placeholder
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { RarityBadge } from "@/components/ui/rarity-badge";
-import { getCurrentUserId } from "@/lib/auth";
+import { getCurrentUserId, getPostLoginPath } from "@/lib/auth";
+import type { Rarity } from "@prisma/client";
 
-export default async function HatchResultPage() {
+const rarities = ["COMMON", "RARE", "UNIQUE", "LEGENDARY"] as const;
+
+function isRarity(value: string | undefined): value is Rarity {
+  return rarities.includes(value as Rarity);
+}
+
+type HatchResultPageProps = {
+  searchParams: Promise<{
+    name?: string;
+    rarity?: string;
+    probability?: string;
+  }>;
+};
+
+export default async function HatchResultPage({ searchParams }: HatchResultPageProps) {
   const userId = await getCurrentUserId();
 
   if (!userId) {
     redirect("/login");
+  }
+
+  const params = await searchParams;
+  const name = params.name;
+  const probability = Number(params.probability);
+
+  if (!name || !isRarity(params.rarity) || !Number.isFinite(probability)) {
+    redirect(await getPostLoginPath(userId));
   }
 
   return (
@@ -29,10 +52,12 @@ export default async function HatchResultPage() {
             <CharacterPlaceholder />
             <Card className="w-full p-5 text-center">
               <div className="grid justify-items-center gap-3">
-                <RarityBadge rarity="COMMON" />
+                <RarityBadge rarity={params.rarity} />
                 <div>
-                  <h2 className="text-3xl font-black text-[#3A2E2E]">몽실이</h2>
-                  <p className="mt-1 text-sm font-bold text-[#8F7D7D]">획득 확률 8%</p>
+                  <h2 className="text-3xl font-black text-[#3A2E2E]">{name}</h2>
+                  <p className="mt-1 text-sm font-bold text-[#8F7D7D]">
+                    획득 확률 {probability}%
+                  </p>
                 </div>
               </div>
             </Card>
