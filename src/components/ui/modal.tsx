@@ -17,11 +17,11 @@ export function Modal({ title, open, onClose, children }: ModalProps) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end bg-zinc-950/40 p-4">
-      <div className="w-full rounded-t-[8px] bg-white p-5 shadow-xl">
+    <div className="fixed inset-0 z-50 flex items-end bg-[#3A2E2E]/35 p-4">
+      <div className="w-full rounded-t-[28px] bg-white p-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] shadow-[0_-18px_40px_rgba(58,46,46,0.18)]">
         <div className="mb-4 flex items-center justify-between gap-3">
-          <h2 className="text-lg font-bold text-zinc-950">{title}</h2>
-          <Button variant="secondary" onClick={onClose}>
+          <h2 className="text-lg font-black text-[#3A2E2E]">{title}</h2>
+          <Button variant="ghost" onClick={onClose} className="px-3">
             닫기
           </Button>
         </div>
@@ -30,4 +30,3 @@ export function Modal({ title, open, onClose, children }: ModalProps) {
     </div>
   );
 }
-

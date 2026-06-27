@@ -17,35 +17,35 @@
 
 ### 1-1. Next.js 프로젝트 생성
 
-- [ ] Next.js App Router 기반 프로젝트 생성
-- [ ] TypeScript 설정
-- [ ] `src/` 디렉토리 구조 사용
-- [ ] ESLint 설정
-- [ ] Prettier 설정
-- [ ] 기본 `README.md` 작성
+- [x] Next.js App Router 기반 프로젝트 생성
+- [x] TypeScript 설정
+- [x] `src/` 디렉토리 구조 사용
+- [x] ESLint 설정
+- [x] Prettier 설정
+- [x] 기본 `README.md` 작성
 
 ### 1-2. UI 환경 설정
 
-- [ ] Tailwind CSS 설정
-- [ ] 전역 스타일 파일 구성
-- [ ] 기본 컬러 토큰 추가
-- [ ] 모바일 safe-area CSS 추가
-- [ ] 공통 Button 컴포넌트 생성
-- [ ] 공통 Card 컴포넌트 생성
-- [ ] 공통 Modal 컴포넌트 생성
-- [ ] 공통 Toast 또는 알림 UI 구성
+- [x] Tailwind CSS 설정
+- [x] 전역 스타일 파일 구성
+- [x] 기본 컬러 토큰 추가
+- [x] 모바일 safe-area CSS 추가
+- [x] 공통 Button 컴포넌트 생성
+- [x] 공통 Card 컴포넌트 생성
+- [x] 공통 Modal 컴포넌트 생성
+- [x] 공통 Toast 또는 알림 UI 구성
 
 ### 1-3. 패키지 설치
 
-- [ ] Prisma 설치
-- [ ] PostgreSQL 드라이버 설정
-- [ ] Zod 설치
-- [ ] React Hook Form 설치
-- [ ] Zustand 설치
-- [ ] TanStack Query 설치
-- [ ] three 설치
-- [ ] @react-three/fiber 설치
-- [ ] @react-three/drei 설치
+- [x] Prisma 설치
+- [x] PostgreSQL 드라이버 설정
+- [x] Zod 설치
+- [x] React Hook Form 설치
+- [x] Zustand 설치
+- [x] TanStack Query 설치
+- [x] three 설치
+- [x] @react-three/fiber 설치
+- [x] @react-three/drei 설치
 
 ---
 
@@ -53,40 +53,40 @@
 
 ### 2-1. Prisma 설정
 
-- [ ] `prisma/schema.prisma` 생성
-- [ ] PostgreSQL datasource 설정
-- [ ] Prisma Client generator 설정
-- [ ] `.env`에 `DATABASE_URL` 추가
-- [ ] `src/lib/prisma.ts` 생성
+- [x] `prisma/schema.prisma` 생성
+- [x] PostgreSQL datasource 설정
+- [x] Prisma Client generator 설정
+- [x] `.env`에 `DATABASE_URL` 추가
+- [x] `src/lib/prisma.ts` 생성
 
 ### 2-2. 모델 생성
 
-- [ ] User 모델 생성
-- [ ] CharacterCatalog 모델 생성
-- [ ] UserCharacter 모델 생성
-- [ ] EggHatch 모델 생성
-- [ ] DiaryEntry 모델 생성
-- [ ] CareActionLog 모델 생성
-- [ ] Rarity enum 생성
-- [ ] CareActionType enum 생성
+- [x] User 모델 생성
+- [x] CharacterCatalog 모델 생성
+- [x] UserCharacter 모델 생성
+- [x] EggHatch 모델 생성
+- [x] DiaryEntry 모델 생성
+- [x] CareActionLog 모델 생성
+- [x] Rarity enum 생성
+- [x] CareActionType enum 생성
 
 ### 2-3. 마이그레이션
 
-- [ ] Prisma migration 생성
-- [ ] DB migration 실행
-- [ ] Prisma Client 생성 확인
+- [x] Prisma migration 생성
+- [x] DB migration 실행
+- [x] Prisma Client 생성 확인
 
 ### 2-4. Seed 데이터
 
-- [ ] `prisma/seed.ts` 생성
-- [ ] 초기 캐릭터 15종 데이터 작성
-- [ ] 일반 10종, 각 8%
-- [ ] 레어 3종, 각 5%
-- [ ] 유니크 1종, 4%
-- [ ] 레전드 1종, 1%
-- [ ] 확률 합계가 100인지 검증하는 로직 작성
-- [ ] seed 실행 스크립트 추가
-- [ ] seed 정상 실행 확인
+- [x] `prisma/seed.ts` 생성
+- [x] 초기 캐릭터 15종 데이터 작성
+- [x] 일반 10종, 각 8%
+- [x] 레어 3종, 각 5%
+- [x] 유니크 1종, 4%
+- [x] 레전드 1종, 1%
+- [x] 확률 합계가 100인지 검증하는 로직 작성
+- [x] seed 실행 스크립트 추가
+- [x] seed 정상 실행 확인
 
 ---
 
@@ -94,38 +94,38 @@
 
 ### 3-1. 인증 방식 결정
 
-- [ ] MVP 인증 방식 선택
-- [ ] 이메일/비밀번호 회원가입 구현
-- [ ] 이메일/비밀번호 로그인 구현
-- [ ] 로그아웃 구현
-- [ ] 현재 로그인 사용자 조회 유틸 구현
+- [x] MVP 인증 방식 선택
+- [x] 이메일/비밀번호 회원가입 구현
+- [x] 이메일/비밀번호 로그인 구현
+- [x] 로그아웃 구현
+- [x] 현재 로그인 사용자 조회 유틸 구현
 
 ### 3-2. 회원가입 화면
 
-- [ ] `/signup` 페이지 생성
-- [ ] 닉네임 입력 필드 생성
-- [ ] 이메일 입력 필드 생성
-- [ ] 비밀번호 입력 필드 생성
-- [ ] 비밀번호 확인 입력 필드 생성
-- [ ] 입력값 검증
-- [ ] 회원가입 성공 시 알 선택 화면으로 이동
+- [x] `/signup` 페이지 생성
+- [x] 닉네임 입력 필드 생성
+- [x] 이메일 입력 필드 생성
+- [x] 비밀번호 입력 필드 생성
+- [x] 비밀번호 확인 입력 필드 생성
+- [x] 입력값 검증
+- [x] 회원가입 성공 시 알 선택 화면으로 이동
 
 ### 3-3. 로그인 화면
 
-- [ ] `/login` 페이지 생성
-- [ ] 이메일 입력 필드 생성
-- [ ] 비밀번호 입력 필드 생성
-- [ ] 로그인 버튼 생성
-- [ ] 회원가입 이동 링크 생성
-- [ ] 로그인 실패 에러 표시
-- [ ] 로그인 성공 시 캐릭터 보유 여부에 따라 이동
+- [x] `/login` 페이지 생성
+- [x] 이메일 입력 필드 생성
+- [x] 비밀번호 입력 필드 생성
+- [x] 로그인 버튼 생성
+- [x] 회원가입 이동 링크 생성
+- [x] 로그인 실패 에러 표시
+- [x] 로그인 성공 시 캐릭터 보유 여부에 따라 이동
 
 ### 3-4. 라우팅 보호
 
-- [ ] 로그인하지 않은 사용자는 `/login`으로 이동
-- [ ] 캐릭터 없는 사용자는 `/onboarding/egg`로 이동
-- [ ] 캐릭터 있는 사용자는 `/home`으로 이동
-- [ ] `/` 페이지에서 상태에 따라 자동 리다이렉트
+- [x] 로그인하지 않은 사용자는 `/login`으로 이동
+- [x] 캐릭터 없는 사용자는 `/onboarding/egg`로 이동
+- [x] 캐릭터 있는 사용자는 `/home`으로 이동
+- [x] `/` 페이지에서 상태에 따라 자동 리다이렉트
 
 ---
 

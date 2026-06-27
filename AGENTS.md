@@ -58,6 +58,90 @@ Follow these rules strictly.
 - Do not hardcode business logic in UI components.
 - Put reusable logic into utility files or feature modules.
 
+### Git Workflow
+
+- Use `develop` as the main development branch.
+- Do not use `main` for daily development work.
+- Create short-lived feature branches from `develop`.
+- Use branch names that describe the work clearly.
+- Prefer these branch prefixes:
+  - `feature/*` for new features
+  - `fix/*` for bug fixes
+  - `docs/*` for documentation changes
+  - `refactor/*` for refactoring
+  - `chore/*` for setup, config, dependency, or maintenance work
+- Keep feature branches small and merge them back into `develop` frequently.
+- Run lint, tests, or build checks before pushing when the related scripts exist.
+- Use `main` later as the stable release branch.
+- When releasing, merge `develop` into `main` and create a version tag such as `v0.1.0`.
+- Use `hotfix/*` branches only for urgent production fixes after `main` becomes active.
+
+Example:
+
+```bash
+git checkout develop
+git pull
+git checkout -b feature/auth
+```
+
+### Commit Message Rules
+
+Use Conventional Commits.
+
+Format:
+
+```txt
+type(scope): subject
+```
+
+Rules:
+
+- Use lowercase English for `type`, `scope`, and `subject`.
+- Keep the subject short, clear, and action-oriented.
+- Do not end the subject with a period.
+- Make one commit represent one logical change.
+- Avoid vague messages such as `update`, `fix`, `wip`, or `asdf`.
+
+Allowed types:
+
+- `feat`: new feature
+- `fix`: bug fix
+- `docs`: documentation only
+- `style`: formatting or style changes without behavior changes
+- `refactor`: code restructuring without behavior changes
+- `test`: tests
+- `chore`: config, dependency, setup, or maintenance work
+- `build`: build system or package changes
+- `ci`: CI workflow changes
+- `perf`: performance improvement
+- `revert`: revert a previous commit
+
+Recommended scopes for this project:
+
+- `auth`
+- `hatch`
+- `character`
+- `diary`
+- `care`
+- `home`
+- `ui`
+- `db`
+- `prisma`
+- `3d`
+- `docs`
+- `config`
+
+Examples:
+
+```txt
+feat(auth): add signup page
+feat(hatch): implement server-side character draw
+fix(diary): ignore empty lines when counting diary content
+refactor(care): extract action cooldown constants
+docs(tasks): mark project setup checklist done
+chore(prisma): add seed script
+```
+
 ---
 
 ## Framework Rules
