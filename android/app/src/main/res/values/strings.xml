@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Dayling</string>
+    <string name="title_activity_main">Dayling</string>
+    <string name="package_name">com.dayling.app</string>
+    <string name="custom_url_scheme">com.dayling.app</string>
+</resources>

@@ -51,6 +51,33 @@ Open Prisma Studio:
 npm run prisma:studio
 ```
 
+## Capacitor WebView
+
+Dayling uses Next.js Route Handlers, Prisma, and PostgreSQL, so the native shell should load a running Next.js server URL.
+
+Install native platforms after dependencies are installed:
+
+```bash
+npm run cap:sync
+```
+
+Open native projects:
+
+```bash
+npm run cap:open:ios
+npm run cap:open:android
+```
+
+Set the WebView target URL when needed:
+
+```bash
+CAPACITOR_SERVER_URL=http://localhost:3000 npm run cap:sync:ios
+CAPACITOR_SERVER_URL=http://10.0.2.2:3000 npm run cap:sync:android
+```
+
+Use your machine LAN IP or a deployed HTTPS URL for real devices.
+See `docs/capacitor.md` for WebView mode notes.
+
 ## VS Code
 
 Open the project:
