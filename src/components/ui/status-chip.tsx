@@ -14,9 +14,9 @@ const toneClass: Record<NonNullable<StatusChipProps["tone"]>, string> = {
 export function StatusChip({ label, value, tone = "pink" }: StatusChipProps) {
   return (
     <div
-      className={`flex min-h-10 items-center justify-between gap-2 rounded-full px-3 text-xs font-black ${toneClass[tone]}`}
+      className={`grid min-h-9 min-w-0 place-items-center rounded-full px-2 text-[11px] font-black leading-tight ${toneClass[tone]}`}
     >
-      <span>{label}</span>
+      <span className="truncate">{label}</span>
       <span>{value}</span>
     </div>
   );

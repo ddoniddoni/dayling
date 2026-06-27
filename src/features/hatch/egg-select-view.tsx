@@ -71,9 +71,9 @@ export function EggSelectView() {
 
   return (
     <>
-      <main className="safe-screen mx-auto flex w-full max-w-md flex-col bg-[#FFF8F0] px-5 py-6">
-        <section className="flex flex-1 flex-col gap-5">
-          <div className="space-y-2 text-center">
+      <main className="safe-screen mx-auto grid h-dvh w-full max-w-md grid-rows-[auto_1fr_auto] bg-[#FFF8F0] px-4 py-4">
+        <section className="pt-2">
+          <div className="space-y-1 text-center">
             <h1 className="text-3xl font-black leading-tight text-[#3A2E2E]">
               마음에 드는 알을 골라주세요!
             </h1>
@@ -81,8 +81,10 @@ export function EggSelectView() {
               어떤 친구가 태어날지 몰라요
             </p>
           </div>
+        </section>
 
-          <div className="grid flex-1 content-center gap-3">
+        <section className="grid min-h-0 content-center py-4">
+          <div className="grid grid-cols-3 gap-3">
             {eggs.map((egg) => (
               <EggCard
                 key={egg.id}
@@ -93,20 +95,20 @@ export function EggSelectView() {
               />
             ))}
           </div>
+        </section>
 
-          <div className="grid gap-3 pb-2">
-            {error ? (
-              <p role="alert" className="rounded-[18px] bg-[#FFF0F3] px-4 py-3 text-sm font-black text-[#9A5361]">
-                {error}
-              </p>
-            ) : null}
-            <Button type="button" onClick={startHatch} disabled={isHatching}>
-              {isHatching ? "부화 중..." : "이 알로 시작하기"}
-            </Button>
-            <Button type="button" variant="secondary" onClick={() => setOpen(true)}>
-              확률표 보기
-            </Button>
-          </div>
+        <section className="grid gap-3 pb-[calc(0.5rem+env(safe-area-inset-bottom))]">
+          {error ? (
+            <p role="alert" className="rounded-[18px] bg-[#FFF0F3] px-4 py-3 text-sm font-black text-[#9A5361]">
+              {error}
+            </p>
+          ) : null}
+          <Button type="button" onClick={startHatch} disabled={isHatching} className="min-h-14">
+            {isHatching ? "부화 중..." : "이 알로 시작하기"}
+          </Button>
+          <Button type="button" variant="secondary" onClick={() => setOpen(true)}>
+            확률표 보기
+          </Button>
         </section>
       </main>
 

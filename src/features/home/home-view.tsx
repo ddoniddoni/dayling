@@ -43,18 +43,18 @@ export function HomeView() {
 
   return (
     <>
-      <main className="safe-screen mx-auto grid h-dvh w-full max-w-md grid-rows-[auto_1fr_auto] bg-[#FFF8F0] px-5 py-4">
+      <main className="safe-screen mx-auto grid h-dvh w-full max-w-md grid-rows-[auto_minmax(0,1fr)_auto] bg-[#FFF8F0] px-4 py-3">
         {toast ? (
           <div className="fixed left-1/2 top-[calc(1rem+env(safe-area-inset-top))] z-40 w-[min(22rem,calc(100%-2rem))] -translate-x-1/2">
             <Toast title={toast.title} description={toast.description} tone="success" />
           </div>
         ) : null}
 
-        <section className="pb-3">
-          <Card className="p-4">
-            <div className="mb-3 flex items-start justify-between gap-3">
+        <section className="pb-2">
+          <Card className="p-3">
+            <div className="mb-2 flex items-start justify-between gap-3">
               <div>
-                <h1 className="text-2xl font-black text-[#3A2E2E]">
+                <h1 className="text-xl font-black leading-tight text-[#3A2E2E]">
                   {mockCharacter.name} Lv. {mockCharacter.level}
                 </h1>
                 <p className="text-sm font-bold text-[#8F7D7D]">
@@ -66,7 +66,7 @@ export function HomeView() {
 
             <ExpProgress current={mockCharacter.exp} required={mockCharacter.requiredExp} />
 
-            <div className="mt-4 grid grid-cols-2 gap-2">
+            <div className="mt-3 grid grid-cols-4 gap-1.5">
               <StatusChip label="포만감" value={mockCharacter.status.hunger} tone="peach" />
               <StatusChip label="수분" value={mockCharacter.status.hydration} tone="blue" />
               <StatusChip label="친밀도" value={mockCharacter.status.affection} tone="pink" />
@@ -75,8 +75,8 @@ export function HomeView() {
           </Card>
         </section>
 
-        <section className="grid min-h-0 place-items-center py-2">
-          <div className="grid w-full justify-items-center gap-3">
+        <section className="grid min-h-0 place-items-stretch py-2">
+          <div className="grid min-h-0 w-full grid-rows-[minmax(0,1fr)_auto] justify-items-center gap-2">
             <div
               role="button"
               tabIndex={0}
@@ -86,18 +86,18 @@ export function HomeView() {
                   showToast("몽실이가 기뻐해요", "톡 누르면 happy 애니메이션이 재생돼요.");
                 }
               }}
-              className="grid min-h-[22rem] w-full place-items-center rounded-[28px] bg-gradient-to-b from-white/90 to-[#FFF2DE] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.8)] outline-none"
+              className="grid min-h-0 w-full place-items-center overflow-hidden rounded-[28px] bg-gradient-to-b from-white/90 to-[#FFF2DE] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.8)] outline-none"
             >
-              <CharacterPlaceholder />
+              <CharacterPlaceholder size="md" />
             </div>
-            <div className="grid gap-1 text-center text-sm font-bold text-[#8F7D7D]">
+            <div className="grid gap-0.5 text-center text-xs font-bold text-[#8F7D7D]">
               <p>드래그해서 친구를 돌려보세요</p>
               <p>톡 누르면 기뻐해요</p>
             </div>
           </div>
         </section>
 
-        <section className="grid grid-cols-4 gap-2 pb-[env(safe-area-inset-bottom)] pt-3">
+        <section className="grid grid-cols-4 gap-2 rounded-t-[28px] bg-white/70 px-1 pb-[calc(0.25rem+env(safe-area-inset-bottom))] pt-2 shadow-[0_-12px_28px_rgba(255,159,178,0.12)]">
           <BottomActionButton
             icon="밥"
             label="밥주기"

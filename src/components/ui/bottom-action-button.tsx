@@ -23,11 +23,11 @@ export function BottomActionButton({
   return (
     <button
       type="button"
-      className={`grid min-h-16 place-items-center gap-1 rounded-[20px] px-2 py-2 text-xs font-black shadow-[0_10px_22px_rgba(58,46,46,0.08)] transition active:scale-[0.97] disabled:opacity-50 ${toneClass[tone]} ${className}`}
+      className={`grid min-h-[58px] place-items-center gap-0.5 rounded-[18px] px-1.5 py-2 text-[11px] font-black leading-tight shadow-[0_10px_22px_rgba(58,46,46,0.08)] transition active:scale-[0.97] disabled:opacity-50 ${toneClass[tone]} ${className}`}
       {...props}
     >
-      <span className="text-xl leading-none">{icon}</span>
-      <span>{label}</span>
+      <span className="text-lg leading-none">{icon}</span>
+      <span className="whitespace-nowrap">{label}</span>
     </button>
   );
 }
