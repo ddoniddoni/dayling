@@ -2,6 +2,7 @@ type EggCardProps = {
   label: string;
   selected: boolean;
   tone: "pink" | "blue" | "green";
+  disabled?: boolean;
   onSelect: () => void;
 };
 
@@ -11,13 +12,20 @@ const toneClass: Record<EggCardProps["tone"], string> = {
   green: "from-[#F3FFE9] to-[#CAFFBF]",
 };
 
-export function EggCard({ label, selected, tone, onSelect }: EggCardProps) {
+export function EggCard({
+  label,
+  selected,
+  tone,
+  disabled = false,
+  onSelect,
+}: EggCardProps) {
   return (
     <button
       type="button"
       onClick={onSelect}
+      disabled={disabled}
       aria-pressed={selected}
-      className={`relative grid min-h-44 place-items-center rounded-[24px] border bg-white/90 p-3 text-center shadow-[0_12px_30px_rgba(255,159,178,0.18)] transition active:scale-[0.98] ${
+      className={`relative grid min-h-44 place-items-center rounded-[24px] border bg-white/90 p-3 text-center shadow-[0_12px_30px_rgba(255,159,178,0.18)] transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 ${
         selected
           ? "border-[#FF9FB2] ring-4 ring-[#FF9FB2]/25"
           : "border-white/80"
@@ -30,7 +38,9 @@ export function EggCard({ label, selected, tone, onSelect }: EggCardProps) {
         <div className="absolute left-6 top-6 h-4 w-4 rounded-full bg-white/55" />
         <div className="absolute right-5 top-12 h-3 w-3 rounded-full bg-white/45" />
       </div>
-      <span className="mt-2 text-sm font-black leading-tight text-[#3A2E2E]">{label}</span>
+      <span className="mt-2 text-sm font-black leading-tight text-[#3A2E2E]">
+        {label}
+      </span>
       {selected ? (
         <span className="absolute right-2 top-2 grid h-7 w-7 place-items-center rounded-full bg-[#FF9FB2] text-xs font-black text-white">
           ✓

@@ -45,3 +45,72 @@ textarea {
   padding-bottom: env(safe-area-inset-bottom);
   padding-left: env(safe-area-inset-left);
 }
+
+.dayling-hatch-egg {
+  animation: dayling-hatch-shake 820ms ease-in-out infinite;
+  transform-origin: 50% 88%;
+}
+
+.dayling-hatch-crack::before,
+.dayling-hatch-crack::after {
+  position: absolute;
+  display: block;
+  width: 4px;
+  border-radius: 999px;
+  background: rgba(154, 83, 97, 0.28);
+  content: "";
+}
+
+.dayling-hatch-crack::before {
+  left: 20px;
+  top: 0;
+  height: 42px;
+  transform: rotate(18deg);
+}
+
+.dayling-hatch-crack::after {
+  left: 28px;
+  top: 30px;
+  height: 28px;
+  transform: rotate(-28deg);
+}
+
+.dayling-hatch-dot {
+  animation: dayling-hatch-bounce 760ms ease-in-out infinite;
+}
+
+@keyframes dayling-hatch-shake {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  18% {
+    transform: rotate(-7deg) scale(1.02);
+  }
+
+  36% {
+    transform: rotate(7deg) scale(1.02);
+  }
+
+  54% {
+    transform: rotate(-5deg) scale(1.03);
+  }
+
+  72% {
+    transform: rotate(5deg) scale(1.02);
+  }
+}
+
+@keyframes dayling-hatch-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+}
