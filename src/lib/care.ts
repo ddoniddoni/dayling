@@ -7,6 +7,8 @@ import type {
   CharacterStatusKey,
 } from "@/features/character/character.types";
 
+export const CARE_ACTION_TYPES = ["FEED", "WATER", "PET", "TOUCH"] as const satisfies readonly CareActionType[];
+
 export const CARE_COOLDOWN_MS: Record<CareActionType, number> = {
   FEED: 30 * 60 * 1000,
   WATER: 30 * 60 * 1000,
@@ -25,10 +27,10 @@ export const CARE_STATUS_DELTA: Record<
   CareActionType,
   Partial<Record<CharacterStatusKey, number>>
 > = {
-  FEED: { hunger: 18, energy: 4 },
-  WATER: { hydration: 18 },
-  PET: { affection: 15, energy: -2 },
-  TOUCH: { affection: 3 },
+  FEED: { hunger: 15 },
+  WATER: { hydration: 15 },
+  PET: { affection: 10 },
+  TOUCH: { affection: 1 },
 };
 
 export const CARE_ACTION_DEFINITIONS: Record<CareActionType, CareActionDefinition> = {
@@ -82,4 +84,8 @@ export function applyCareStatus(
 
 export function getCareActionDefinition(actionType: CareActionType) {
   return CARE_ACTION_DEFINITIONS[actionType];
+}
+
+export function isCareActionType(value: unknown): value is CareActionType {
+  return typeof value === "string" && CARE_ACTION_TYPES.includes(value as CareActionType);
 }

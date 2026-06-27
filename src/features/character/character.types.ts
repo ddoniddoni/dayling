@@ -31,6 +31,28 @@ export type UserCharacter = CharacterStatus & {
   requiredExp: number;
 };
 
+export type MainCharacter = {
+  id: string;
+  level: number;
+  exp: number;
+  requiredExp: number;
+  status: CharacterStatus;
+  catalog: CharacterCatalog;
+};
+
+export type CharacterApiErrorCode = "UNAUTHORIZED" | "CHARACTER_NOT_FOUND";
+
+export type CharacterApiResponse =
+  | {
+      ok: true;
+      character: MainCharacter;
+    }
+  | {
+      ok: false;
+      error: CharacterApiErrorCode;
+      message: string;
+    };
+
 export type CharacterStatusKey = keyof CharacterStatus;
 
 export type CareActionDefinition = {
@@ -39,3 +61,49 @@ export type CareActionDefinition = {
   animation: CharacterAnimation;
   statusDelta: Partial<Record<CharacterStatusKey, number>>;
 };
+
+export type CareApiErrorCode =
+  | "UNAUTHORIZED"
+  | "CHARACTER_NOT_FOUND"
+  | "INVALID_ACTION_TYPE"
+  | "CARE_ACTION_COOLDOWN";
+
+export type CareApiResponse =
+  | {
+      ok: true;
+      character: MainCharacter;
+      animation: CharacterAnimation;
+      actionType: CareActionType;
+    }
+  | {
+      ok: false;
+      error: CareApiErrorCode;
+      message: string;
+      retryAfterMs?: number;
+    };
+
+export type DiaryApiErrorCode =
+  | "UNAUTHORIZED"
+  | "CHARACTER_NOT_FOUND"
+  | "INVALID_DIARY_CONTENT"
+  | "INVALID_DIARY_LINE_COUNT";
+
+export type DiaryApiResponse =
+  | {
+      ok: true;
+      character: MainCharacter;
+      diary: {
+        id: string;
+        lineCount: number;
+        grantedExp: number;
+        levelUps: number;
+        expAlreadyGrantedToday: boolean;
+        isFirstDiary: boolean;
+      };
+    }
+  | {
+      ok: false;
+      error: DiaryApiErrorCode;
+      message: string;
+      lineCount?: number;
+    };

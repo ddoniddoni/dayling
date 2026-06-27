@@ -7,6 +7,7 @@ import {
   applyCareStatus,
   clampStatus,
   getCareActionDefinition,
+  isCareActionType,
 } from "@/lib/care";
 
 const baseStatus = {
@@ -25,10 +26,10 @@ describe("care utilities", () => {
 
   it("applies feed status changes", () => {
     assert.deepEqual(applyCareStatus(baseStatus, "FEED"), {
-      hunger: 68,
+      hunger: 65,
       hydration: 50,
       affection: 50,
-      energy: 54,
+      energy: 50,
     });
   });
 
@@ -37,7 +38,7 @@ describe("care utilities", () => {
       hunger: 100,
       hydration: 50,
       affection: 50,
-      energy: 100,
+      energy: 99,
     });
   });
 
@@ -58,7 +59,14 @@ describe("care utilities", () => {
       actionType: "WATER",
       cooldownMs: 30 * 60 * 1000,
       animation: "drink",
-      statusDelta: { hydration: 18 },
+      statusDelta: { hydration: 15 },
     });
+  });
+
+  it("validates action types", () => {
+    assert.equal(isCareActionType("FEED"), true);
+    assert.equal(isCareActionType("TOUCH"), true);
+    assert.equal(isCareActionType("SLEEP"), false);
+    assert.equal(isCareActionType(null), false);
   });
 });
