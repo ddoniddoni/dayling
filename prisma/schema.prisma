@@ -1,0 +1,109 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Rarity {
+  COMMON
+  RARE
+  UNIQUE
+  LEGENDARY
+}
+
+enum CareActionType {
+  FEED
+  WATER
+  PET
+  TOUCH
+}
+
+model User {
+  id             String          @id @default(cuid())
+  email          String          @unique
+  nickname       String
+  passwordHash   String
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  characters     UserCharacter[]
+  eggHatches     EggHatch[]
+  diaryEntries   DiaryEntry[]
+  careActionLogs CareActionLog[]
+}
+
+model CharacterCatalog {
+  id             String          @id
+  name           String
+  rarity         Rarity
+  probability    Int
+  modelUrl       String?
+  thumbnailUrl   String?
+  isActive       Boolean         @default(true)
+  createdAt      DateTime        @default(now())
+  userCharacters UserCharacter[]
+  eggHatches     EggHatch[]
+}
+
+model UserCharacter {
+  id                 String          @id @default(cuid())
+  userId             String
+  characterCatalogId String
+  isMain             Boolean         @default(true)
+  level              Int             @default(1)
+  exp                Int             @default(0)
+  hunger             Int             @default(50)
+  hydration          Int             @default(50)
+  affection          Int             @default(50)
+  energy             Int             @default(50)
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  user               User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  catalog            CharacterCatalog @relation(fields: [characterCatalogId], references: [id])
+  diaryEntries       DiaryEntry[]
+  careActionLogs     CareActionLog[]
+
+  @@index([userId])
+  @@index([characterCatalogId])
+}
+
+model EggHatch {
+  id                 String           @id @default(cuid())
+  userId             String
+  characterCatalogId String
+  eggType            String
+  probability        Int
+  createdAt          DateTime         @default(now())
+  user               User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  catalog            CharacterCatalog @relation(fields: [characterCatalogId], references: [id])
+
+  @@index([userId])
+}
+
+model DiaryEntry {
+  id              String        @id @default(cuid())
+  userId          String
+  userCharacterId String
+  content         String
+  grantedExp      Int           @default(0)
+  createdAt       DateTime      @default(now())
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  character       UserCharacter @relation(fields: [userCharacterId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+model CareActionLog {
+  id              String         @id @default(cuid())
+  userId          String
+  userCharacterId String
+  actionType      CareActionType
+  createdAt       DateTime       @default(now())
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  character       UserCharacter  @relation(fields: [userCharacterId], references: [id], onDelete: Cascade)
+
+  @@index([userId, actionType, createdAt])
+}
+
