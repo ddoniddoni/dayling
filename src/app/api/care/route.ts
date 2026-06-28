@@ -1,9 +1,17 @@
 import { NextResponse } from "next/server";
 
-import type { CareApiErrorCode, CareApiResponse } from "@/features/character/character.types";
+import type {
+  CareApiErrorCode,
+  CareApiResponse,
+} from "@/features/character/character.types";
 import { serializeMainCharacter } from "@/features/character/character.server";
+import { apiError } from "@/lib/api-response";
 import { getCurrentUserId } from "@/lib/auth";
-import { applyCareStatus, getCareActionDefinition, isCareActionType } from "@/lib/care";
+import {
+  applyCareStatus,
+  getCareActionDefinition,
+  isCareActionType,
+} from "@/lib/care";
 import { prisma } from "@/lib/prisma";
 
 function errorResponse(
@@ -12,9 +20,9 @@ function errorResponse(
   status: number,
   retryAfterMs?: number,
 ) {
-  return NextResponse.json<CareApiResponse>(
-    { ok: false, error, message, retryAfterMs },
-    { status },
+  return apiError<Extract<CareApiResponse, { ok: false }>>(
+    { error, message, retryAfterMs },
+    status,
   );
 }
 
@@ -30,13 +38,24 @@ export async function POST(request: Request) {
   try {
     body = await request.json();
   } catch {
-    return errorResponse("INVALID_ACTION_TYPE", "돌봄 액션을 확인해주세요.", 400);
+    return errorResponse(
+      "INVALID_ACTION_TYPE",
+      "돌봄 액션을 확인해주세요.",
+      400,
+    );
   }
 
-  const actionType = typeof body === "object" && body !== null ? Reflect.get(body, "actionType") : null;
+  const actionType =
+    typeof body === "object" && body !== null
+      ? Reflect.get(body, "actionType")
+      : null;
 
   if (!isCareActionType(actionType)) {
-    return errorResponse("INVALID_ACTION_TYPE", "돌봄 액션을 확인해주세요.", 400);
+    return errorResponse(
+      "INVALID_ACTION_TYPE",
+      "돌봄 액션을 확인해주세요.",
+      400,
+    );
   }
 
   const actionDefinition = getCareActionDefinition(actionType);
@@ -76,7 +95,9 @@ export async function POST(request: Request) {
     });
 
     const now = new Date();
-    const elapsedMs = latestAction ? now.getTime() - latestAction.createdAt.getTime() : Infinity;
+    const elapsedMs = latestAction
+      ? now.getTime() - latestAction.createdAt.getTime()
+      : Infinity;
 
     if (elapsedMs < actionDefinition.cooldownMs) {
       const retryAfterMs = actionDefinition.cooldownMs - elapsedMs;
@@ -127,7 +148,12 @@ export async function POST(request: Request) {
   });
 
   if (!result.ok) {
-    return errorResponse(result.error, result.message, result.status, result.retryAfterMs);
+    return errorResponse(
+      result.error,
+      result.message,
+      result.status,
+      result.retryAfterMs,
+    );
   }
 
   return NextResponse.json<CareApiResponse>(result);

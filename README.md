@@ -1,6 +1,8 @@
 # Dayling
 
-Cute 3D character-raising mobile WebView app built with Next.js App Router.
+Dayling is a cute 3D character-raising mobile WebView MVP built with Next.js App Router.
+
+Users sign up, choose an egg, receive a server-drawn character, and raise that character by writing diaries and using care actions.
 
 ## Stack
 
@@ -11,7 +13,22 @@ Cute 3D character-raising mobile WebView app built with Next.js App Router.
 - Prisma
 - PostgreSQL
 - three.js / React Three Fiber
-- Capacitor WebView later
+- Capacitor WebView
+
+## MVP Status
+
+Implemented:
+
+- Email/password signup, login, logout, and protected routing
+- Egg onboarding and server-side hatch draw
+- Character probability table and hatch history
+- Main character screen with React Three Fiber placeholder
+- Touch drag rotation and action animations
+- Feed, water, pet, and touch care actions
+- Diary writing, daily EXP grants, and level-up handling
+- Capacitor iOS/Android shell setup
+
+Known follow-up fixes are tracked in `TASKS.md` and `docs/future-todo.md`.
 
 ## Getting Started
 
@@ -27,6 +44,19 @@ Create a local env file:
 cp .env.example .env
 ```
 
+Fill the Prisma connection values in `.env`.
+For Supabase, copy the Prisma connection strings from:
+
+```txt
+Supabase Dashboard > Project > Connect > ORMs > Prisma
+```
+
+You need:
+
+- `DATABASE_URL`: pooled app query connection
+- `DIRECT_URL`: direct or migration connection
+- `AUTH_SECRET`: long random string for signed auth cookies
+
 Run the development server:
 
 ```bash
@@ -37,7 +67,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Database
 
-Set `DATABASE_URL` in `.env`, then run:
+After `.env` is ready, generate Prisma Client, run migrations, and seed the initial 15 characters:
 
 ```bash
 npm run prisma:generate
@@ -50,6 +80,24 @@ Open Prisma Studio:
 ```bash
 npm run prisma:studio
 ```
+
+## Verification
+
+Run these before merging a feature branch:
+
+```bash
+npm test
+npm run lint
+npm run build
+```
+
+Optional formatting check:
+
+```bash
+npm run format:check
+```
+
+If `format:check` reports older project-wide formatting drift, format only the files touched by the current branch before committing.
 
 ## Capacitor WebView
 
@@ -78,6 +126,30 @@ CAPACITOR_SERVER_URL=http://10.0.2.2:3000 npm run cap:sync:android
 Use your machine LAN IP or a deployed HTTPS URL for real devices.
 See `docs/capacitor.md` for WebView mode notes.
 
+## Git Flow
+
+Daily development happens on `develop`.
+
+For each phase:
+
+```bash
+git checkout develop
+git pull --ff-only
+git checkout -b feature/short-description
+```
+
+After implementation and verification:
+
+```bash
+git commit -m "feat(scope): describe change"
+git push -u origin feature/short-description
+git checkout develop
+git merge --ff-only feature/short-description
+git push origin develop
+```
+
+Use Conventional Commits as described in `AGENTS.md`.
+
 ## VS Code
 
 Open the project:
@@ -95,3 +167,9 @@ Read in this order before implementation:
 1. `PRD.md`
 2. `TASKS.md`
 3. `AGENTS.md`
+
+Additional docs:
+
+- `design/style.md`: mobile WebView visual direction
+- `docs/capacitor.md`: Capacitor WebView packaging notes
+- `docs/future-todo.md`: next fixes and post-MVP ideas

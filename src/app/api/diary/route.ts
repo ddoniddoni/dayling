@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
 
-import type { DiaryApiErrorCode, DiaryApiResponse } from "@/features/character/character.types";
+import type {
+  DiaryApiErrorCode,
+  DiaryApiResponse,
+} from "@/features/character/character.types";
 import { serializeMainCharacter } from "@/features/character/character.server";
+import { apiError } from "@/lib/api-response";
 import { getCurrentUserId } from "@/lib/auth";
 import {
   countNonEmptyDiaryLines,
@@ -18,9 +22,9 @@ function errorResponse(
   status: number,
   lineCount?: number,
 ) {
-  return NextResponse.json<DiaryApiResponse>(
-    { ok: false, error, message, lineCount },
-    { status },
+  return apiError<Extract<DiaryApiResponse, { ok: false }>>(
+    { error, message, lineCount },
+    status,
   );
 }
 
@@ -36,13 +40,24 @@ export async function POST(request: Request) {
   try {
     body = await request.json();
   } catch {
-    return errorResponse("INVALID_DIARY_CONTENT", "일기 내용을 확인해주세요.", 400);
+    return errorResponse(
+      "INVALID_DIARY_CONTENT",
+      "일기 내용을 확인해주세요.",
+      400,
+    );
   }
 
-  const content = typeof body === "object" && body !== null ? Reflect.get(body, "content") : null;
+  const content =
+    typeof body === "object" && body !== null
+      ? Reflect.get(body, "content")
+      : null;
 
   if (typeof content !== "string" || content.trim().length === 0) {
-    return errorResponse("INVALID_DIARY_CONTENT", "일기 내용을 입력해주세요.", 400);
+    return errorResponse(
+      "INVALID_DIARY_CONTENT",
+      "일기 내용을 입력해주세요.",
+      400,
+    );
   }
 
   const lineCount = countNonEmptyDiaryLines(content);

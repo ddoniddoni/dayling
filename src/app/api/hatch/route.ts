@@ -1,12 +1,18 @@
 import { NextResponse } from "next/server";
 
-import { isEggType, type HatchErrorCode, type HatchResponse } from "@/features/hatch/hatch.types";
+import {
+  isEggType,
+  type HatchErrorCode,
+  type HatchErrorResponse,
+  type HatchResponse,
+} from "@/features/hatch/hatch.types";
+import { apiError } from "@/lib/api-response";
 import { getCurrentUserId } from "@/lib/auth";
 import { pickWeightedCharacter } from "@/lib/probability";
 import { prisma } from "@/lib/prisma";
 
 function errorResponse(error: HatchErrorCode, message: string, status: number) {
-  return NextResponse.json<HatchResponse>({ ok: false, error, message }, { status });
+  return apiError<HatchErrorResponse>({ error, message }, status);
 }
 
 export async function POST(request: Request) {
@@ -24,7 +30,10 @@ export async function POST(request: Request) {
     return errorResponse("INVALID_EGG_TYPE", "알 정보를 확인해주세요.", 400);
   }
 
-  const eggType = typeof body === "object" && body !== null ? Reflect.get(body, "eggType") : null;
+  const eggType =
+    typeof body === "object" && body !== null
+      ? Reflect.get(body, "eggType")
+      : null;
 
   if (!isEggType(eggType)) {
     return errorResponse("INVALID_EGG_TYPE", "알 정보를 확인해주세요.", 400);
@@ -122,6 +131,10 @@ export async function POST(request: Request) {
 
     return NextResponse.json<HatchResponse>(result);
   } catch {
-    return errorResponse("PROBABILITY_TABLE_INVALID", "부화 처리 중 문제가 발생했습니다.", 500);
+    return errorResponse(
+      "PROBABILITY_TABLE_INVALID",
+      "부화 처리 중 문제가 발생했습니다.",
+      500,
+    );
   }
 }
